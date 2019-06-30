@@ -22,5 +22,8 @@ pluginTester({
     `const json = {
       items: [1,2,3]
     }`,
+    `const notJson = {
+      ["foo" + "bar"]: 123
+    }`
   ],
 })

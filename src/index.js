@@ -1,5 +1,11 @@
+const isConvertibleObjectExpression = node => 
+  node.properties.every(prop => !prop.computed)
+
 function convert(node, t) {
   if (node.type === 'ObjectExpression') {
+    if (!isConvertibleObjectExpression(node)) {
+      return null
+    }
     return Object.fromEntries(
       node.properties.map((prop) => {
         const key = t.isIdentifier(prop.key) ? prop.key.name : prop.key.value
@@ -22,6 +28,9 @@ module.exports = function({ types: t }) {
     visitor: {
       ObjectExpression(path) {
         const obj = convert(path.node, t)
+        if (obj == null) {
+          return
+        }
         const parsed = JSON.stringify(obj)
         path.replaceWith(
           t.callExpression(

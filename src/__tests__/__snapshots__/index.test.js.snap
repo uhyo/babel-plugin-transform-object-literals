@@ -41,3 +41,17 @@ const json = {
 const json = JSON.parse(\\"{\\\\\\"items\\\\\\":[1,2,3]}\\");
 "
 `;
+
+exports[`babel-plugin-transform-object-literals 4. babel-plugin-transform-object-literals: 4. babel-plugin-transform-object-literals 1`] = `
+"
+const notJson = {
+      [\\"foo\\" + \\"bar\\"]: 123
+    }
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const notJson = {
+  [\\"foo\\" + \\"bar\\"]: 123
+};
+"
+`;
